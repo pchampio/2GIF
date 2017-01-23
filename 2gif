@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 $(ffmpeg --help 2> /dev/null > /dev/null)
 
@@ -9,7 +9,7 @@ fi
 
 # default values
 FPS=12
-RESOLUTION=450
+RESOLUTION=850
 
 # read the options
 TEMP=`getopt -o c:r:f:s:d:hl:: --long resolution:,fps:,start:,duration:,help,loop:: -n $0 -- "$@"`
@@ -30,7 +30,7 @@ while true ; do
       echo "  -l, --loop            Number of times to loop the output"
       echo "                          default: no loop"
       echo "                          -l      output loop infinitely"
-      echo "                          -l10      output loop 10 times"
+      echo "                          -l10    output loop 10 times"
       echo "Examples:"
       echo "  $0 input.mp4 out.gif"
       echo "  $0 input.mp4 out.gif -s"00:01" -d5 -r450"

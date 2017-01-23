@@ -1,23 +1,33 @@
-# FFMPEG gif script for bash
+# FFmpeg gif wrapper
 
-![Coding example](coding.gif)
-![Gliding example](gliding.gif)
+#### A simple command, used to convert videos to gif.
+![Saber](exemple/saber.gif)
 
-Script to generate animated gifs easily from command line.
+### Usage:
 
-Outputs palette-mapped .gifs with great colours & desired resolution from your videos.
+```
+$ 2gif --help
+Usage: 2gif [options] <input video file> <output gif name>
 
-## Installation
+Options:
+  -h, --help            Show this help
+  -r, --resolution      Set the pixels wide (preserving the aspect ratio)
+  -f, --fps             Set the gif frame rate
+                          default 12
+  -s, --start           Skip the first x seconds
+  -d, --duration        Set the duration
+  -l, --loop            Number of times to loop the output
+                          default: no loop
+                          -l      output loop infinitely
+                          -l10    output loop 10 times
+Examples:
+  2gif input.mp4 out.gif
+  2gif input.mp4 out.gif -s00:01 -d5 -r450
+  2gif input.mp4 out.gif -s20:00 -d5 -l --fps30
+```
 
-* Clone the repo
-* Install ffmpeg (you might need to install a package manager, such as homebrew for OS X)
+### Installation:
 
-## Usage
-* Run `./gifenc [input movie file] [generated gif's name] [horizontal resolution] [frames per second (fps)]`
-* i.e.: `./gifenc input.mov output.gif 720 10` will output 720px wide 10fps .gif. (`chmod +x gifenc.sh` might be needed to run beforehand)
-
-## Tips
-* Tweak the parameters in order to get internet-shareable sizes
-* Tested with most common movie formats
-
-Special thanks to [this article](http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html).
+```
+sudo curl -L https://raw.githubusercontent.com/Drakirus/2GIF/master/2gif -o /bin/2gif && sudo chmod 755 /bin/2gif
+```
