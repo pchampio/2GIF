@@ -12,7 +12,7 @@ FPS=12
 RESOLUTION=850
 
 # read the options
-TEMP=`getopt -o c:r:f:s:d:hl:: --long resolution:,fps:,start:,duration:,help,loop:: -n $0 -- "$@"`
+TEMP=`getopt -o c:r:f:t:s:d:hl:: --long resolution:,fps:,start:,to:,duration:,help,loop:: -n $0 -- "$@"`
 eval set -- "$TEMP"
 
 # extract options and their arguments into variables.
@@ -26,6 +26,7 @@ while true ; do
       echo "  -f, --fps             Set the gif frame rate"
       echo "                          default 12"
       echo "  -s, --start           Skip the first x seconds"
+      echo "  -t, --to              Capture to x seconds"
       echo "  -d, --duration        Set the duration"
       echo "  -l, --loop            Number of times to loop the output"
       echo "                          default: no loop"
@@ -40,6 +41,11 @@ while true ; do
       case "$2" in
         "") shift 2 ;;
         *) RESOLUTION="$2"; shift 2 ;;
+      esac ;;
+    -t|--to)
+      case "$2" in
+        "") shift 2 ;;
+        *) TO="-t $2"; shift 2 ;;
       esac ;;
     -l|--loop)
       case "$2" in
@@ -81,9 +87,9 @@ filters="fps=$FPS,scale=$RESOLUTION:-1:flags=lanczos"
 # http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html#usage
 
 # create global color palette
-ffmpeg -v warning $START $DURATION -i "$1" -vf "$filters,palettegen" -y "$palette"
+ffmpeg -v warning $START $TO $DURATION -i "$1" -vf "$filters,palettegen" -y "$palette"
 
 # create GIF
-ffmpeg -v warning $START $DURATION -i "$1" -i "$palette" -lavfi "$filters [x]; [x][1:v] paletteuse" -y "$2"
+ffmpeg -v warning $START $TO $DURATION -i "$1" -i "$palette" -lavfi "$filters [x]; [x][1:v] paletteuse" -y "$2"
 
 rm $palette

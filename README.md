@@ -15,6 +15,7 @@ Options:
   -f, --fps             Set the gif frame rate
                           default 12
   -s, --start           Skip the first x seconds
+  -t, --to              Capture to x seconds
   -d, --duration        Set the duration
   -l, --loop            Number of times to loop the output
                           default: no loop
